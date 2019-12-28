@@ -27,7 +27,6 @@ public class DriverManager {
         String browser = System.getProperty("browser", "chrome");
         if (browser.equalsIgnoreCase("chrome")) {
             ChromeOptions options = new ChromeOptions();
-            //options.addArguments("--incognito");
             WebDriverManager.chromedriver().setup();
             threadDriver.set(new ChromeDriver(options));
         }
@@ -44,8 +43,6 @@ public class DriverManager {
         threadDriver.get().manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
         threadDriver.get().manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
     }
-
-
 
     public static void killDriver() {
         threadDriver.get().close();

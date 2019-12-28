@@ -49,7 +49,6 @@ public class AbstractElement {
         unhighlight();
         lastElement = element;
         lastBorder = (String) ((JavascriptExecutor) getDriver()).executeScript("arguments[0].setAttribute('style', arguments[1]);", element, "color: cyan; border: 2px solid cyan;");
-
     }
 
     private void unhighlight() {

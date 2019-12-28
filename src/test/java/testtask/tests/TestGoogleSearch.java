@@ -23,16 +23,17 @@ public class TestGoogleSearch extends BaseTest {
     @Test(description = "Search for “automation”. Check: 'testautomationday.com' is in search results pages (1-5)")
     public void checkDomainInWebPage() {
         String searchWord = "automation";
-        String searchDomain ="testautomationday.com";
-        //String searchDomain  = "automationanywhere.com";
+        //String searchDomain ="testautomationday.com";
+        String searchDomain  = "automationanywhere.com";
         int rangePages = 5;
 
         MainPage mainPg = new MainPage();
-        boolean b = mainPg.searchForWord(searchWord)
+        boolean isFound = mainPg.searchForWord(searchWord)
                 .searchForDomain(searchDomain,rangePages);
 
-        Assert.assertTrue(b,"Expected domain wasn't found");
+        Assert.assertTrue(isFound,"Expected domain wasn't found");
     }
+
 
 }
 
