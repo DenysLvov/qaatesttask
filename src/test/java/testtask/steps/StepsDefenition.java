@@ -1,5 +1,7 @@
 package testtask.steps;
 
+
+import io.cucumber.java.After;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -10,22 +12,28 @@ import testtask.pageobjects.ResultsPage;
 import testtask.pageobjects.WebPage;
 
 import static testtask.DriverManager.getDriver;
+import static testtask.DriverManager.killDriver;
 
 public class StepsDefenition {
+
+    @After
+    public void shutDown() {
+        killDriver();
+    }
 
     MainPage mainPage;
     ResultsPage resultPage;
     WebPage webPage;
 
-    @Given("I open {string} page")
+    @Given("I open {string} url")
     public void iOpenPage(String url) {
-    getDriver().get(url);
+        getDriver().get(url);
     }
 
     @When("I enter {string} in search field")
     public void iEnterInSearchField(String searchWord) {
         mainPage = new MainPage();
-                resultPage = mainPage.searchForWord(searchWord);
+        resultPage = mainPage.searchForWord(searchWord);
     }
 
     @And("I open the {string}-st link on search results page")
@@ -37,6 +45,16 @@ public class StepsDefenition {
     @Then("I see {string} in the title of opened page")
     public void iSeeInTheTitleOfOpenedPage(String searchWord) {
         String webPageTitle = webPage.getTitle();
-        Assert.assertEquals(webPageTitle, searchWord, String.format("Expected title is %s, but was %s", searchWord, webPageTitle ));
+        Assert.assertTrue(webPageTitle.toLowerCase().contains(searchWord),
+               String.format("Title '%s' doesn't contain search word '%s'", webPageTitle, searchWord ));
+    }
+
+
+    @Then("I can find {string} domain in first {string} pages")
+    public void iCanFindDomainInFirstPages(String searchDomain, String rangePages) {
+        int num = Integer.valueOf(rangePages);
+        boolean isFound = resultPage.searchForDomain(searchDomain,num);
+
+        Assert.assertTrue(isFound,"Expected domain wasn't found");
     }
 }
