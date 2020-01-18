@@ -1,6 +1,5 @@
 /*
  * WebPage class
- *
  * Class describes web page opened from link
  */
 

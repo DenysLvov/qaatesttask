@@ -1,6 +1,5 @@
 /*
  *  ResultsPage class.
- *
  *  Class describes Page with results of search
  */
 package testtask.pageobjects;

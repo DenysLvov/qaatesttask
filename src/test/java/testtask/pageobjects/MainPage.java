@@ -1,6 +1,5 @@
 /*
  * MainPage class
- *
  * Class describes Search Page
  */
 package testtask.pageobjects;

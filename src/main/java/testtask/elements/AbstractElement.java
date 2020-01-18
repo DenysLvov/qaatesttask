@@ -30,7 +30,7 @@ public class AbstractElement {
         return element;
     }
 
-    public boolean isVisible(long... timeout) { //long... allows to use or isVisible(n) or isVisible()
+    public boolean isVisible(long... timeout) {
         long currentTimeout = 5;
         if (timeout.length > 0) {
             currentTimeout = timeout[0];
