@@ -39,7 +39,6 @@
             <version>6.14.3</version>
             <scope>test</scope>
         </dependency>
-
         <!-- Browsers drivers -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
@@ -98,6 +97,18 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+        <groupId>info.cukes</groupId>
+        <artifactId>cucumber-java</artifactId>
+        <version>1.2.5</version>
+        <!-- 			<scope>test</scope>
+         -->		</dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-jvm-deps</artifactId>
+            <version>1.0.5</version>
+            <scope>test</scope>
+        </dependency>
         <!-- Allure -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
@@ -138,7 +149,7 @@
                         <argLine>
                             -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                         </argLine>
-                        <suiteXmlFiles>testsuite.xml</suiteXmlFiles>
+                        <suiteXmlFiles>testng.xml</suiteXmlFiles>
                     </configuration>
                     <dependencies>
                         <dependency>
