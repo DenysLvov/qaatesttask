@@ -11,6 +11,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import testtask.elements.Button;
 
+import java.util.Iterator;
 import java.util.List;
 
 import static testtask.DriverManager.getDriver;
@@ -21,7 +22,6 @@ public class ResultsPage {
     private By linkLocator = By.xpath("//a//h3");
     private By nextButton = By.xpath("//a/span[text()='Next' or text()='Уперед']");
     private By domainLinkLocator = By.xpath("//div//cite[@class]");
-    private By domainLink = By.partialLinkText("testautomationday.com");
 
     @Getter
     private Button Next = new Button(nextButton, "Next page");
@@ -39,21 +39,26 @@ public class ResultsPage {
 
         int initPgCoun = numPg;
         List<WebElement> elemntList;
+        Iterator<WebElement> it;
 
         while (numPg != 0) {
             elemntList = getDriver().findElements(domainLinkLocator);
-            for (WebElement el : elemntList) {
+            it = elemntList.iterator();
+            while (it.hasNext()) {
+                WebElement el = it.next();
                 if (el.getText().contains(expectDomain)) {
-                    log.info("Link was found on page: "+ (initPgCoun - numPg));
+                    log.info("Link was found on page: " + (initPgCoun - numPg));
                     return true;
                 }
             }
-            if (getNext().isVisible()) {
-                numPg--;
-                getNext().clickButton();
+               if (getNext().isVisible()) {
+                    numPg--;
+                    getNext().clickButton();
+                }
             }
+            log.error("Nothing was found");
+            return false;
         }
-        log.error("Nothing was found");
-        return false;
+
+
     }
-}

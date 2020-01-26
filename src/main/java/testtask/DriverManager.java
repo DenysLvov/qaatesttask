@@ -24,19 +24,26 @@ public class DriverManager {
     }
 
     private static void initDriver() {
-        String browser = System.getProperty("browser", "chrome");
-        if (browser.equalsIgnoreCase("chrome")) {
-            ChromeOptions options = new ChromeOptions();
-            WebDriverManager.chromedriver().setup();
-            threadDriver.set(new ChromeDriver(options));
-        }
-        if (browser.equalsIgnoreCase("firefox")) {
-            WebDriverManager.firefoxdriver().setup();
-            threadDriver.set(new FirefoxDriver());
-        }
-        if (browser.equalsIgnoreCase("edge")) {
-            WebDriverManager.edgedriver().setup();
-            threadDriver.set(new EdgeDriver());
+        String browser = System.getProperty("browser", "chrome").toLowerCase();
+        switch (browser) {
+            case "chrome": {
+                ChromeOptions options = new ChromeOptions();
+                WebDriverManager.chromedriver().setup();
+                threadDriver.set(new ChromeDriver(options));
+            }
+            break;
+
+            case "firefox": {
+                WebDriverManager.firefoxdriver().setup();
+                threadDriver.set(new FirefoxDriver());
+            }
+            break;
+
+            case "edge": {
+                WebDriverManager.edgedriver().setup();
+                threadDriver.set(new EdgeDriver());
+            }
+            break;
         }
 
         threadDriver.get().manage().window().fullscreen();
