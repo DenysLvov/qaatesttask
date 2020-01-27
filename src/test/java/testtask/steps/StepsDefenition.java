@@ -5,6 +5,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import java.util.function.Function;
 import org.junit.Assert;
 import testtask.pageobjects.MainPage;
 import testtask.pageobjects.ResultsPage;
@@ -36,8 +37,8 @@ public class StepsDefenition {
 
     @And("I open the {string}-st link on search results page")
     public void iOpenTheStLinkOnSearchResultsPage(String linkNumb) {
-        int linkToOpen = Integer.parseInt(linkNumb);
-        webPage = resultPage.openLink(linkToOpen);
+        int linkToOpen = strToInt.apply(linkNumb);
+        webPage = resultPage.openLink(linkToOpen-1);
     }
 
     @Then("I see {string} in the title of opened page")
@@ -49,9 +50,11 @@ public class StepsDefenition {
 
     @Then("I can find {string} domain in first {string} pages")
     public void iCanFindDomainInFirstPages(String searchDomain, String rangePages) {
-        int num = Integer.parseInt(rangePages);
+        int num = strToInt.apply(rangePages);
         boolean isFound = resultPage.searchForDomain(searchDomain,num);
 
         Assert.assertTrue("Expected domain wasn't found",isFound);
     }
+
+    Function<String, Integer> strToInt = Integer::parseInt;
 }
